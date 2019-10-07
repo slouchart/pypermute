@@ -1,0 +1,1726 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.1" />
+<title>pypermute API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pypermute</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">__version__ = &#39;0.1&#39;
+__author__ = &#39;Sébastien Louchart:sebastien.louchart@gmail.com&#39;
+
+__all__ = [&#39;Permutation&#39;, &#39;PermutationBuilderError&#39;, &#39;PermutationStructuralError&#39;]
+
+import random
+from typing import Any, Tuple, Union, Dict, Iterator, Sequence, Optional
+
+
+Cycle = Sequence[int]
+Representation = Optional[Sequence[Cycle]]
+Map = Dict[int, int]
+
+
+class PermutationStructuralError(ValueError):
+    &#34;&#34;&#34;Thrown when the representation of a permutation presents some issues
+    These issues can be:
+
+    - the same element belongs to more than one cycle
+    - one or more elements appear to be missing i.e. the sequence possesses holes
+    &#34;&#34;&#34;
+    ...
+
+
+class PermutationBuilderError(PermissionError):
+    &#34;&#34;&#34;Thrown when `add_cycle` or other mutable methods are called outside of the building context manager
+    &#34;&#34;&#34;
+    ...
+
+
+class Permutation:
+    &#34;&#34;&#34;Provides a way to transpose any ordered set into itself by permuting its elements according to a map
+    that is a product of transpositions, cycles and fixed points.
+
+    Allows product of permutations, cycle notation and signature.
+
+    A instance of Permutation is immutable except when entering the building mode
+    in which the internal representation is reset and then constructed by repeated calls to the method
+    `add_cycle`.
+    &#34;&#34;&#34;
+
+    def __init__(self, representation: Representation = None, reach: int = None):
+        &#34;&#34;&#34;The `representation` of a permutation is a tuple of tuples of integers.
+
+        Each inner tuple is a cycle, each integer must be present once and must be
+        in `range(0, reach)` without any hole nor duplicates.
+
+        For instance,
+
+        - `((1,), (0, 2, 3), (4,))` is a valid representation of reach=5
+
+        - `((1, 4), (3,))` is not a valid representation because both 0 and 2 are missing
+
+        - `((0, 2), (3, 4), (1, 2))` is not valid either because 2 is found in two cycles
+        &#34;&#34;&#34;
+        self._representation = None
+        self._reach = 0
+
+        if representation is not None:
+            self._reach = self._validate(representation)
+            self._representation = representation
+        else:
+            assert reach is not None and isinstance(reach, int)
+            self._reach = reach
+
+    def add_cycle(self, *args):
+        &#34;&#34;&#34;When in mutable mode, appends a cycle to the permutation being built
+        &#34;&#34;&#34;
+        raise PermutationBuilderError(&#39;Attempt to add a cycle outside a Permutation build context&#39;)
+
+    def invert(self) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns the inverse permutation such as `p o p-1 = Id`
+        &#34;&#34;&#34;
+        with Permutation(reach=self.reach) as ret:
+            for cycle in self.canonical():
+                ret.add_cycle(*(reversed(cycle)))
+
+        return ret
+
+    @staticmethod
+    def compose(a: &#39;Permutation&#39;, b: &#39;Permutation&#39;) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Composes two permutations: `a*b(x) &lt;=&gt; a(b(x))`
+        &#34;&#34;&#34;
+        assert a.reach == b.reach
+        composition_map = dict()
+        for elmt in range(0, a.reach):
+            composition_map[elmt] = a.transpose(b.transpose(elmt))
+
+        return Permutation.from_map(composition_map)
+
+    @staticmethod
+    def from_map(m: Map) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Builds a permutation from a dictionary `m`
+        &#34;&#34;&#34;
+        reach = len(m)
+        if sorted(list(m.keys())) != list(range(0, reach)) or sorted(list(m.values())) != list(range(0, reach)):
+            raise ValueError(&#34;Given map is not bijective&#34;)
+
+        _m = {k: v for k, v in m.items()}  # copy the input map
+        with Permutation(reach=reach) as ret:
+            while len(_m) &gt; 0:
+                current_cycle = []
+
+                # pick an element at random
+                first_elem = random.choice(list(_m.keys()))
+                next_elem = first_elem
+                while True:
+                    current_cycle.append(next_elem)
+                    next_elem, current_elem = _m[next_elem], next_elem
+                    del _m[current_elem]
+                    if next_elem == first_elem:
+                        ret.add_cycle(*tuple(current_cycle))
+                        break
+
+        return ret
+
+    def to_map(self) -&gt; Map:
+        &#34;&#34;&#34;Returns the transposition map of the permutation
+        &#34;&#34;&#34;
+        m = dict()
+        for inx in range(0, self.reach):
+            m[inx] = self.transpose(inx)
+        return m
+
+    @staticmethod
+    def cyclotomic(vertices: int, allows_fixed_points: bool = True) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a permutation on the `vertices`-th roots of one
+
+        if `allows_fixed_points` is True then:
+
+        - the permutation has one fixed point if `vertices` is odd
+
+        - and two fixed points if `vertices` is even
+
+        if `allows_fixed_points` is False then:
+
+        - the permutation is the *complex roots conjugation* if `vertices` is odd,
+
+        - a *circular permutation* if `vertices` is even.
+        &#34;&#34;&#34;
+        if vertices &lt;= 0:
+            raise ValueError(&#39;Number of vertices for a cyclotomic permutation must be 1 or greater&#39;)
+
+        representation = []
+        if vertices % 2 == 0:
+            if allows_fixed_points:
+                if vertices &gt; 2:
+                    # two fixed points: 0 and vertices // 2
+                    representation.append((0,))
+                    representation.append((vertices//2,))
+                    # vertices - 2 2-cycles
+                    for inx in range(1, vertices//2):
+                        representation.append((inx, vertices - inx,))
+                elif vertices == 2:
+                    representation = [(0,), (1,)]
+                elif vertices == 1:
+                    representation = [(0,)]
+            else:
+                # circular permutation
+                if vertices &gt; 2:
+                    cycle = list(range(0, vertices - 1))
+                    cycle.insert(0, vertices - 1)
+                    representation = [tuple(cycle)]
+                elif vertices == 2:
+                    representation = [(1, 0)]
+                elif vertices == 1:
+                    raise ValueError(&#39;Cyclotomic permutation of reach 1 with no fixed points is impossible&#39;)
+
+        else:
+            if allows_fixed_points:
+                # one fixed point
+                representation = [(0,)]
+                if vertices &gt; 2:
+                    for inx in range(1, (vertices-1)//2 + 1):
+                        representation.append((inx, vertices-inx,))
+            else:
+                # complex conjugation of non real roots
+                if vertices &gt; 1:
+                    for inx in range(0, (vertices-1)//2):
+                        representation.append((inx, vertices-inx-2,))
+                else:
+                    raise ValueError(&#39;cyclotomic permutation of reach 1 with no fixed points is impossible&#39;)
+
+        return Permutation(tuple(representation),)
+
+    def copy(self) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a copy of itself
+        &#34;&#34;&#34;
+        return Permutation(self._representation)
+
+    def iterated(self, power: int) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Composes the permutation with itself `power` times
+        &#34;&#34;&#34;
+        p = self.copy()
+        while power &gt; 1:
+            p *= p
+            power -= 1
+
+        return p
+
+    @property
+    def reach(self) -&gt; int:
+        &#34;&#34;&#34;Returns the `reach` of a permutation that is the size of the set it acts upon
+        &#34;&#34;&#34;
+        return self._reach
+
+    @property
+    def order(self) -&gt; int:
+        &#34;&#34;&#34;Returns the `order` of a permutation that is the product of the lengths of its cycles
+        &#34;&#34;&#34;
+        p = 1
+        for cycle in self._representation:
+            p *= cycle.__len__()
+
+        return p
+
+    @property
+    def cycles(self) -&gt; int:
+        &#34;&#34;&#34;Returns the total number of cycles of length &gt; 1
+        &#34;&#34;&#34;
+        return list(self._iter_cycles(2, None)).__len__()
+
+    def get_cycles(self, order: int = 0) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;Returns an iterator of all cycles of order `order`.
+        If `order` is 0, returns all the cycles of any order except fixed points
+        &#34;&#34;&#34;
+        if order == 0:
+            return self._iter_cycles(2, None)
+        else:
+            return self._iter_cycles(order, order)
+
+    def cycles_by_length(self, length: int) -&gt; int:
+        &#34;&#34;&#34;Returns an iterable of all cycles of a given length
+        &#34;&#34;&#34;
+        return list(self.get_cycles(length)).__len__()
+
+    @property
+    def transpositions(self) -&gt; int:
+        &#34;&#34;&#34;Returns the number of 2-cycles
+        &#34;&#34;&#34;
+        return list(self.get_cycles(2)).__len__()
+
+    def get_transpositions(self) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;Returns an iterator on all 2-cycles
+        &#34;&#34;&#34;
+        return self.get_cycles(order=2)
+
+    @property
+    def fixed_points(self) -&gt; int:
+        &#34;&#34;&#34;Returns the total number of fixed points
+        &#34;&#34;&#34;
+        return list(self.get_fixed_points()).__len__()
+
+    def get_fixed_points(self) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;returns an iterator on all the fixed points which are just 1-cycles
+        &#34;&#34;&#34;
+        return self.get_cycles(order=1)
+
+    def transpose(self, element: int) -&gt; int:
+        &#34;&#34;&#34;Returns the index of the transposed element
+        &#34;&#34;&#34;
+        cycle, pos = self._find_element(element)
+        return self._find_next(pos, cycle)
+
+    def permute_sequence(self, col: Sequence[Any]) -&gt; Iterator[Any]:
+        &#34;&#34;&#34;Returns a permuted set as an iterator.
+        The input parameter must be an **indexable bounded container**
+        &#34;&#34;&#34;
+        assert len(col) == self.reach
+        index = 0
+        for _ in col:
+            yield col[self.transpose(index)]
+            index += 1
+
+    @staticmethod
+    def random_full_cycle(reach: int) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a permutation that contains only a `reach`-cycle with random transpositions
+        &#34;&#34;&#34;
+        full_cycle = list(range(0, reach))
+        random.shuffle(full_cycle)
+        representation = tuple(full_cycle)
+        with Permutation(reach=len(representation)) as ret:
+            ret.add_cycle(*representation)
+
+        return ret
+
+    @staticmethod
+    def circular(reach: int, reverse: bool = False) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a circular permutation of length `reach`.
+        If `reverse` is True, returns the inverse permutation such as
+        `circular(n) * circular(n, reverse=True) == identity`
+        &#34;&#34;&#34;
+        cycle = list(range(0, reach))
+        if reverse:
+            cycle = reversed(cycle)
+        with Permutation(reach=reach) as p:
+            p.add_cycle(*tuple(cycle))
+
+        return p
+
+    @staticmethod
+    def random(reach: int, allows_fixed_points: bool = True) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a full random permutation of length `reach`.
+        If `allows_fixed_points` is False, the function shuffles the set of fixed points to
+        reduce them into a cycle. If the number of fixed points reached 1, another random
+        permutation is generated instead.
+        &#34;&#34;&#34;
+        keys = list(range(0, reach))
+        values = keys[:]
+        random.shuffle(values)
+        m = dict(zip(keys, values))
+        p = Permutation.from_map(m)
+        if not allows_fixed_points:
+            while p.fixed_points &gt; 0:
+                if p.fixed_points &gt; 1:
+                    k = [pt[0] for pt in p.get_fixed_points()]
+                    v = k[:]
+                    random.shuffle(v)
+                    m.update(dict(zip(k, v)))
+                    p = Permutation.from_map(m)
+                else:
+                    p = Permutation.random(reach, allows_fixed_points=allows_fixed_points)
+
+        return p
+
+    @staticmethod
+    def identity(reach: int) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns the identity permutation of `reach` size
+        &#34;&#34;&#34;
+        with Permutation(reach=reach) as ret:
+            for inx in range(0, reach):
+                ret.add_cycle(inx)
+
+        return ret
+
+    def canonical(self) -&gt; Representation:
+        &#34;&#34;&#34;Returns the canonical representation of a permutation
+        as a product of cycles that obeys the following constraints:
+
+        1. in each cycle the largest element is listed first
+
+        2. the cycles are sorted in ascending order of their first element
+        &#34;&#34;&#34;
+        canonical_rep = []
+        for cycle in self._representation:
+            canonical_cycle = []
+            # get the largest element
+            lrg = max(cycle)
+            pos = cycle.index(lrg)
+            elmt = lrg
+            while True:
+                canonical_cycle.append(elmt)
+                elmt = self._find_next(pos, cycle)
+                if elmt == lrg:
+                    break
+                else:
+                    pos = cycle.index(elmt)
+
+            canonical_rep.append(tuple(canonical_cycle))
+
+        canonical_rep = tuple(sorted(canonical_rep, key=lambda a: a[0], reverse=True))
+        return canonical_rep
+
+    def __iter__(self) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;Returns an iterator on all the cycles
+        &#34;&#34;&#34;
+        return self._iter_cycles(1, None)
+
+    def __enter__(self) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Context manager interface for entering the mutable building mode
+        &#34;&#34;&#34;
+        return self._enter_building_mode()
+
+    def __exit__(self, *_):
+        &#34;&#34;&#34;Context manager interface for exiting the mutable building mode
+        &#34;&#34;&#34;
+        self._exit_building_mode()
+
+    def __invert__(self) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Inverse permutation operator `~`
+        &#34;&#34;&#34;
+        return self.invert()
+
+    def __mul__(self, other: &#39;Permutation&#39;) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Composition operator `*`
+        &#34;&#34;&#34;
+        if not isinstance(other, self.__class__):
+            raise TypeError(f&#39;You can compose (multiply) only operands of {self.__class__} type&#39;)
+
+        return self.compose(self, other)
+
+    def __pow__(self, power: int, modulo=None) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Iterated composition operator `**`
+        &#34;&#34;&#34;
+        return self.iterated(power)
+
+    def __eq__(self, other: &#39;Permutation&#39;) -&gt; bool:
+        &#34;&#34;&#34;Equality operator `==`.
+        Two permutations are equal if and only if their `canonical`representations are identical.
+        &#34;&#34;&#34;
+        if not isinstance(other, self.__class__):
+            raise TypeError(f&#39;You can compare only operands of {self.__class__} type&#39;)
+
+        return other.canonical() == self.canonical()
+
+    # PROTECTED INTERFACE
+    def _validate(self, representation: Representation) -&gt; Union[int, None]:
+        &#34;&#34;&#34;Applies rules to a representation:
+
+        1. must be a tuple of tuples of integers
+        2. No tuple can be empty
+        3. The integers must form a sequence from 0 up to reach as in range(0, reach)
+
+        May throw TypeError, ValueError or PermutationStructuralError (subtypes ValueError)
+        &#34;&#34;&#34;
+        indexes = list()
+        if not isinstance(representation, tuple):
+            raise TypeError(&#39;Given representation must be a tuple&#39;)
+
+        if len(representation) &lt;= 0:
+            raise ValueError(&#39;Given representation must not be empty&#39;)
+
+        for cycle in representation:
+            if not isinstance(cycle, tuple):
+                raise TypeError(&#39;Given representation must contain only tuples&#39;)
+
+            if len(cycle) &lt;= 0:
+                raise ValueError(&#39;At least one cycle is empty&#39;)
+
+            for index in cycle:
+                if not isinstance(index, int):
+                    raise TypeError(&#39;A cycle must contain only integers&#39;)
+                indexes.append(index)
+
+        if self._reach == 0:
+            reach = len(indexes)
+        else:
+            reach = self._reach
+
+        if tuple(sorted(indexes)) != tuple(range(0, reach)):
+            raise PermutationStructuralError(&#39;Missing or duplicate index in given representation&#39;)
+
+        return len(indexes)
+
+    def _find_element(self, element: int) -&gt; Tuple[Cycle, int]:
+        &#34;&#34;&#34;Finds an element in its cycle
+        return cycle, position of &lt;element&gt; in the cycle
+        &#34;&#34;&#34;
+        for cycle in self._representation:
+            if element in cycle:
+                return cycle, cycle.index(element)
+
+        raise IndexError(f&#39;{element} was not found in {self._representation}&#39;)
+
+    @staticmethod
+    def _find_next(position: int, cycle: Cycle) -&gt; int:
+        &#34;&#34;&#34;Returns the next element from a given position in a cycle
+        &#34;&#34;&#34;
+        if position &lt; len(cycle) - 1:
+            return cycle[position + 1]
+        elif position == len(cycle) - 1:
+            return cycle[0]
+        else:
+            raise IndexError(f&#39;{position} exceeds cycle length {len(cycle)} or is negative&#39;)
+
+    def _iter_cycles(self, min_length: int, max_length: Union[int, None]) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;Iterator helper. Returns an iterator for all the cycles whose length matches the bounds
+        given as parameters. If &lt;max_length&gt; is None, no upper bound is checked
+        &#34;&#34;&#34;
+        assert min_length &lt;= max_length if max_length is not None else True
+        for cycle in self._representation:
+            if max_length is not None:
+                if min_length &lt;= len(cycle) &lt;= max_length:
+                    yield cycle
+            else:
+                if len(cycle) &gt;= min_length:
+                    yield cycle
+
+    def _enter_building_mode(self):
+        self._representation = None
+        setattr(self, &#39;_temp_representation&#39;, [])
+
+        def add_cycle(*args):
+            getattr(self, &#39;_temp_representation&#39;).append(tuple(args))
+
+        self.__setattr__(&#39;_temp_method&#39;, self.add_cycle)
+        self.__setattr__(add_cycle.__name__, add_cycle)
+
+        return self
+
+    def _exit_building_mode(self):
+        self.__setattr__(self.add_cycle.__name__, self.__getattribute__(&#39;_temp_method&#39;))
+        self.__delattr__(&#39;_temp_method&#39;)
+
+        _representation = tuple(getattr(self, &#39;_temp_representation&#39;))
+        try:
+            self._validate(_representation)
+            self._representation = _representation
+        except ValueError or TypeError:
+            raise
+        finally:
+            self.__delattr__(&#39;_temp_representation&#39;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pypermute.Permutation"><code class="flex name class">
+<span>class <span class="ident">Permutation</span></span>
+<span>(</span><span>representation=None, reach=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Provides a way to transpose any ordered set into itself by permuting its elements according to a map
+that is a product of transpositions, cycles and fixed points.</p>
+<p>Allows product of permutations, cycle notation and signature.</p>
+<p>A instance of Permutation is immutable except when entering the building mode
+in which the internal representation is reset and then constructed by repeated calls to the method
+<code>add_cycle</code>.</p>
+<p>The <code>representation</code> of a permutation is a tuple of tuples of integers.</p>
+<p>Each inner tuple is a cycle, each integer must be present once and must be
+in <code>range(0, reach)</code> without any hole nor duplicates.</p>
+<p>For instance,</p>
+<ul>
+<li>
+<p><code>((1,), (0, 2, 3), (4,))</code> is a valid representation of reach=5</p>
+</li>
+<li>
+<p><code>((1, 4), (3,))</code> is not a valid representation because both 0 and 2 are missing</p>
+</li>
+<li>
+<p><code>((0, 2), (3, 4), (1, 2))</code> is not valid either because 2 is found in two cycles</p>
+</li>
+</ul></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Permutation:
+    &#34;&#34;&#34;Provides a way to transpose any ordered set into itself by permuting its elements according to a map
+    that is a product of transpositions, cycles and fixed points.
+
+    Allows product of permutations, cycle notation and signature.
+
+    A instance of Permutation is immutable except when entering the building mode
+    in which the internal representation is reset and then constructed by repeated calls to the method
+    `add_cycle`.
+    &#34;&#34;&#34;
+
+    def __init__(self, representation: Representation = None, reach: int = None):
+        &#34;&#34;&#34;The `representation` of a permutation is a tuple of tuples of integers.
+
+        Each inner tuple is a cycle, each integer must be present once and must be
+        in `range(0, reach)` without any hole nor duplicates.
+
+        For instance,
+
+        - `((1,), (0, 2, 3), (4,))` is a valid representation of reach=5
+
+        - `((1, 4), (3,))` is not a valid representation because both 0 and 2 are missing
+
+        - `((0, 2), (3, 4), (1, 2))` is not valid either because 2 is found in two cycles
+        &#34;&#34;&#34;
+        self._representation = None
+        self._reach = 0
+
+        if representation is not None:
+            self._reach = self._validate(representation)
+            self._representation = representation
+        else:
+            assert reach is not None and isinstance(reach, int)
+            self._reach = reach
+
+    def add_cycle(self, *args):
+        &#34;&#34;&#34;When in mutable mode, appends a cycle to the permutation being built
+        &#34;&#34;&#34;
+        raise PermutationBuilderError(&#39;Attempt to add a cycle outside a Permutation build context&#39;)
+
+    def invert(self) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns the inverse permutation such as `p o p-1 = Id`
+        &#34;&#34;&#34;
+        with Permutation(reach=self.reach) as ret:
+            for cycle in self.canonical():
+                ret.add_cycle(*(reversed(cycle)))
+
+        return ret
+
+    @staticmethod
+    def compose(a: &#39;Permutation&#39;, b: &#39;Permutation&#39;) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Composes two permutations: `a*b(x) &lt;=&gt; a(b(x))`
+        &#34;&#34;&#34;
+        assert a.reach == b.reach
+        composition_map = dict()
+        for elmt in range(0, a.reach):
+            composition_map[elmt] = a.transpose(b.transpose(elmt))
+
+        return Permutation.from_map(composition_map)
+
+    @staticmethod
+    def from_map(m: Map) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Builds a permutation from a dictionary `m`
+        &#34;&#34;&#34;
+        reach = len(m)
+        if sorted(list(m.keys())) != list(range(0, reach)) or sorted(list(m.values())) != list(range(0, reach)):
+            raise ValueError(&#34;Given map is not bijective&#34;)
+
+        _m = {k: v for k, v in m.items()}  # copy the input map
+        with Permutation(reach=reach) as ret:
+            while len(_m) &gt; 0:
+                current_cycle = []
+
+                # pick an element at random
+                first_elem = random.choice(list(_m.keys()))
+                next_elem = first_elem
+                while True:
+                    current_cycle.append(next_elem)
+                    next_elem, current_elem = _m[next_elem], next_elem
+                    del _m[current_elem]
+                    if next_elem == first_elem:
+                        ret.add_cycle(*tuple(current_cycle))
+                        break
+
+        return ret
+
+    def to_map(self) -&gt; Map:
+        &#34;&#34;&#34;Returns the transposition map of the permutation
+        &#34;&#34;&#34;
+        m = dict()
+        for inx in range(0, self.reach):
+            m[inx] = self.transpose(inx)
+        return m
+
+    @staticmethod
+    def cyclotomic(vertices: int, allows_fixed_points: bool = True) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a permutation on the `vertices`-th roots of one
+
+        if `allows_fixed_points` is True then:
+
+        - the permutation has one fixed point if `vertices` is odd
+
+        - and two fixed points if `vertices` is even
+
+        if `allows_fixed_points` is False then:
+
+        - the permutation is the *complex roots conjugation* if `vertices` is odd,
+
+        - a *circular permutation* if `vertices` is even.
+        &#34;&#34;&#34;
+        if vertices &lt;= 0:
+            raise ValueError(&#39;Number of vertices for a cyclotomic permutation must be 1 or greater&#39;)
+
+        representation = []
+        if vertices % 2 == 0:
+            if allows_fixed_points:
+                if vertices &gt; 2:
+                    # two fixed points: 0 and vertices // 2
+                    representation.append((0,))
+                    representation.append((vertices//2,))
+                    # vertices - 2 2-cycles
+                    for inx in range(1, vertices//2):
+                        representation.append((inx, vertices - inx,))
+                elif vertices == 2:
+                    representation = [(0,), (1,)]
+                elif vertices == 1:
+                    representation = [(0,)]
+            else:
+                # circular permutation
+                if vertices &gt; 2:
+                    cycle = list(range(0, vertices - 1))
+                    cycle.insert(0, vertices - 1)
+                    representation = [tuple(cycle)]
+                elif vertices == 2:
+                    representation = [(1, 0)]
+                elif vertices == 1:
+                    raise ValueError(&#39;Cyclotomic permutation of reach 1 with no fixed points is impossible&#39;)
+
+        else:
+            if allows_fixed_points:
+                # one fixed point
+                representation = [(0,)]
+                if vertices &gt; 2:
+                    for inx in range(1, (vertices-1)//2 + 1):
+                        representation.append((inx, vertices-inx,))
+            else:
+                # complex conjugation of non real roots
+                if vertices &gt; 1:
+                    for inx in range(0, (vertices-1)//2):
+                        representation.append((inx, vertices-inx-2,))
+                else:
+                    raise ValueError(&#39;cyclotomic permutation of reach 1 with no fixed points is impossible&#39;)
+
+        return Permutation(tuple(representation),)
+
+    def copy(self) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a copy of itself
+        &#34;&#34;&#34;
+        return Permutation(self._representation)
+
+    def iterated(self, power: int) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Composes the permutation with itself `power` times
+        &#34;&#34;&#34;
+        p = self.copy()
+        while power &gt; 1:
+            p *= p
+            power -= 1
+
+        return p
+
+    @property
+    def reach(self) -&gt; int:
+        &#34;&#34;&#34;Returns the `reach` of a permutation that is the size of the set it acts upon
+        &#34;&#34;&#34;
+        return self._reach
+
+    @property
+    def order(self) -&gt; int:
+        &#34;&#34;&#34;Returns the `order` of a permutation that is the product of the lengths of its cycles
+        &#34;&#34;&#34;
+        p = 1
+        for cycle in self._representation:
+            p *= cycle.__len__()
+
+        return p
+
+    @property
+    def cycles(self) -&gt; int:
+        &#34;&#34;&#34;Returns the total number of cycles of length &gt; 1
+        &#34;&#34;&#34;
+        return list(self._iter_cycles(2, None)).__len__()
+
+    def get_cycles(self, order: int = 0) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;Returns an iterator of all cycles of order `order`.
+        If `order` is 0, returns all the cycles of any order except fixed points
+        &#34;&#34;&#34;
+        if order == 0:
+            return self._iter_cycles(2, None)
+        else:
+            return self._iter_cycles(order, order)
+
+    def cycles_by_length(self, length: int) -&gt; int:
+        &#34;&#34;&#34;Returns an iterable of all cycles of a given length
+        &#34;&#34;&#34;
+        return list(self.get_cycles(length)).__len__()
+
+    @property
+    def transpositions(self) -&gt; int:
+        &#34;&#34;&#34;Returns the number of 2-cycles
+        &#34;&#34;&#34;
+        return list(self.get_cycles(2)).__len__()
+
+    def get_transpositions(self) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;Returns an iterator on all 2-cycles
+        &#34;&#34;&#34;
+        return self.get_cycles(order=2)
+
+    @property
+    def fixed_points(self) -&gt; int:
+        &#34;&#34;&#34;Returns the total number of fixed points
+        &#34;&#34;&#34;
+        return list(self.get_fixed_points()).__len__()
+
+    def get_fixed_points(self) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;returns an iterator on all the fixed points which are just 1-cycles
+        &#34;&#34;&#34;
+        return self.get_cycles(order=1)
+
+    def transpose(self, element: int) -&gt; int:
+        &#34;&#34;&#34;Returns the index of the transposed element
+        &#34;&#34;&#34;
+        cycle, pos = self._find_element(element)
+        return self._find_next(pos, cycle)
+
+    def permute_sequence(self, col: Sequence[Any]) -&gt; Iterator[Any]:
+        &#34;&#34;&#34;Returns a permuted set as an iterator.
+        The input parameter must be an **indexable bounded container**
+        &#34;&#34;&#34;
+        assert len(col) == self.reach
+        index = 0
+        for _ in col:
+            yield col[self.transpose(index)]
+            index += 1
+
+    @staticmethod
+    def random_full_cycle(reach: int) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a permutation that contains only a `reach`-cycle with random transpositions
+        &#34;&#34;&#34;
+        full_cycle = list(range(0, reach))
+        random.shuffle(full_cycle)
+        representation = tuple(full_cycle)
+        with Permutation(reach=len(representation)) as ret:
+            ret.add_cycle(*representation)
+
+        return ret
+
+    @staticmethod
+    def circular(reach: int, reverse: bool = False) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a circular permutation of length `reach`.
+        If `reverse` is True, returns the inverse permutation such as
+        `circular(n) * circular(n, reverse=True) == identity`
+        &#34;&#34;&#34;
+        cycle = list(range(0, reach))
+        if reverse:
+            cycle = reversed(cycle)
+        with Permutation(reach=reach) as p:
+            p.add_cycle(*tuple(cycle))
+
+        return p
+
+    @staticmethod
+    def random(reach: int, allows_fixed_points: bool = True) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns a full random permutation of length `reach`.
+        If `allows_fixed_points` is False, the function shuffles the set of fixed points to
+        reduce them into a cycle. If the number of fixed points reached 1, another random
+        permutation is generated instead.
+        &#34;&#34;&#34;
+        keys = list(range(0, reach))
+        values = keys[:]
+        random.shuffle(values)
+        m = dict(zip(keys, values))
+        p = Permutation.from_map(m)
+        if not allows_fixed_points:
+            while p.fixed_points &gt; 0:
+                if p.fixed_points &gt; 1:
+                    k = [pt[0] for pt in p.get_fixed_points()]
+                    v = k[:]
+                    random.shuffle(v)
+                    m.update(dict(zip(k, v)))
+                    p = Permutation.from_map(m)
+                else:
+                    p = Permutation.random(reach, allows_fixed_points=allows_fixed_points)
+
+        return p
+
+    @staticmethod
+    def identity(reach: int) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Returns the identity permutation of `reach` size
+        &#34;&#34;&#34;
+        with Permutation(reach=reach) as ret:
+            for inx in range(0, reach):
+                ret.add_cycle(inx)
+
+        return ret
+
+    def canonical(self) -&gt; Representation:
+        &#34;&#34;&#34;Returns the canonical representation of a permutation
+        as a product of cycles that obeys the following constraints:
+
+        1. in each cycle the largest element is listed first
+
+        2. the cycles are sorted in ascending order of their first element
+        &#34;&#34;&#34;
+        canonical_rep = []
+        for cycle in self._representation:
+            canonical_cycle = []
+            # get the largest element
+            lrg = max(cycle)
+            pos = cycle.index(lrg)
+            elmt = lrg
+            while True:
+                canonical_cycle.append(elmt)
+                elmt = self._find_next(pos, cycle)
+                if elmt == lrg:
+                    break
+                else:
+                    pos = cycle.index(elmt)
+
+            canonical_rep.append(tuple(canonical_cycle))
+
+        canonical_rep = tuple(sorted(canonical_rep, key=lambda a: a[0], reverse=True))
+        return canonical_rep
+
+    def __iter__(self) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;Returns an iterator on all the cycles
+        &#34;&#34;&#34;
+        return self._iter_cycles(1, None)
+
+    def __enter__(self) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Context manager interface for entering the mutable building mode
+        &#34;&#34;&#34;
+        return self._enter_building_mode()
+
+    def __exit__(self, *_):
+        &#34;&#34;&#34;Context manager interface for exiting the mutable building mode
+        &#34;&#34;&#34;
+        self._exit_building_mode()
+
+    def __invert__(self) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Inverse permutation operator `~`
+        &#34;&#34;&#34;
+        return self.invert()
+
+    def __mul__(self, other: &#39;Permutation&#39;) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Composition operator `*`
+        &#34;&#34;&#34;
+        if not isinstance(other, self.__class__):
+            raise TypeError(f&#39;You can compose (multiply) only operands of {self.__class__} type&#39;)
+
+        return self.compose(self, other)
+
+    def __pow__(self, power: int, modulo=None) -&gt; &#39;Permutation&#39;:
+        &#34;&#34;&#34;Iterated composition operator `**`
+        &#34;&#34;&#34;
+        return self.iterated(power)
+
+    def __eq__(self, other: &#39;Permutation&#39;) -&gt; bool:
+        &#34;&#34;&#34;Equality operator `==`.
+        Two permutations are equal if and only if their `canonical`representations are identical.
+        &#34;&#34;&#34;
+        if not isinstance(other, self.__class__):
+            raise TypeError(f&#39;You can compare only operands of {self.__class__} type&#39;)
+
+        return other.canonical() == self.canonical()
+
+    # PROTECTED INTERFACE
+    def _validate(self, representation: Representation) -&gt; Union[int, None]:
+        &#34;&#34;&#34;Applies rules to a representation:
+
+        1. must be a tuple of tuples of integers
+        2. No tuple can be empty
+        3. The integers must form a sequence from 0 up to reach as in range(0, reach)
+
+        May throw TypeError, ValueError or PermutationStructuralError (subtypes ValueError)
+        &#34;&#34;&#34;
+        indexes = list()
+        if not isinstance(representation, tuple):
+            raise TypeError(&#39;Given representation must be a tuple&#39;)
+
+        if len(representation) &lt;= 0:
+            raise ValueError(&#39;Given representation must not be empty&#39;)
+
+        for cycle in representation:
+            if not isinstance(cycle, tuple):
+                raise TypeError(&#39;Given representation must contain only tuples&#39;)
+
+            if len(cycle) &lt;= 0:
+                raise ValueError(&#39;At least one cycle is empty&#39;)
+
+            for index in cycle:
+                if not isinstance(index, int):
+                    raise TypeError(&#39;A cycle must contain only integers&#39;)
+                indexes.append(index)
+
+        if self._reach == 0:
+            reach = len(indexes)
+        else:
+            reach = self._reach
+
+        if tuple(sorted(indexes)) != tuple(range(0, reach)):
+            raise PermutationStructuralError(&#39;Missing or duplicate index in given representation&#39;)
+
+        return len(indexes)
+
+    def _find_element(self, element: int) -&gt; Tuple[Cycle, int]:
+        &#34;&#34;&#34;Finds an element in its cycle
+        return cycle, position of &lt;element&gt; in the cycle
+        &#34;&#34;&#34;
+        for cycle in self._representation:
+            if element in cycle:
+                return cycle, cycle.index(element)
+
+        raise IndexError(f&#39;{element} was not found in {self._representation}&#39;)
+
+    @staticmethod
+    def _find_next(position: int, cycle: Cycle) -&gt; int:
+        &#34;&#34;&#34;Returns the next element from a given position in a cycle
+        &#34;&#34;&#34;
+        if position &lt; len(cycle) - 1:
+            return cycle[position + 1]
+        elif position == len(cycle) - 1:
+            return cycle[0]
+        else:
+            raise IndexError(f&#39;{position} exceeds cycle length {len(cycle)} or is negative&#39;)
+
+    def _iter_cycles(self, min_length: int, max_length: Union[int, None]) -&gt; Iterator[Cycle]:
+        &#34;&#34;&#34;Iterator helper. Returns an iterator for all the cycles whose length matches the bounds
+        given as parameters. If &lt;max_length&gt; is None, no upper bound is checked
+        &#34;&#34;&#34;
+        assert min_length &lt;= max_length if max_length is not None else True
+        for cycle in self._representation:
+            if max_length is not None:
+                if min_length &lt;= len(cycle) &lt;= max_length:
+                    yield cycle
+            else:
+                if len(cycle) &gt;= min_length:
+                    yield cycle
+
+    def _enter_building_mode(self):
+        self._representation = None
+        setattr(self, &#39;_temp_representation&#39;, [])
+
+        def add_cycle(*args):
+            getattr(self, &#39;_temp_representation&#39;).append(tuple(args))
+
+        self.__setattr__(&#39;_temp_method&#39;, self.add_cycle)
+        self.__setattr__(add_cycle.__name__, add_cycle)
+
+        return self
+
+    def _exit_building_mode(self):
+        self.__setattr__(self.add_cycle.__name__, self.__getattribute__(&#39;_temp_method&#39;))
+        self.__delattr__(&#39;_temp_method&#39;)
+
+        _representation = tuple(getattr(self, &#39;_temp_representation&#39;))
+        try:
+            self._validate(_representation)
+            self._representation = _representation
+        except ValueError or TypeError:
+            raise
+        finally:
+            self.__delattr__(&#39;_temp_representation&#39;)</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="pypermute.Permutation.circular"><code class="name flex">
+<span>def <span class="ident">circular</span></span>(<span>reach, reverse=False)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a circular permutation of length <code>reach</code>.
+If <code>reverse</code> is True, returns the inverse permutation such as
+<code>circular(n) * circular(n, reverse=True) == identity</code></p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def circular(reach: int, reverse: bool = False) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Returns a circular permutation of length `reach`.
+    If `reverse` is True, returns the inverse permutation such as
+    `circular(n) * circular(n, reverse=True) == identity`
+    &#34;&#34;&#34;
+    cycle = list(range(0, reach))
+    if reverse:
+        cycle = reversed(cycle)
+    with Permutation(reach=reach) as p:
+        p.add_cycle(*tuple(cycle))
+
+    return p</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.compose"><code class="name flex">
+<span>def <span class="ident">compose</span></span>(<span>a, b)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Composes two permutations: <code>a*b(x) &lt;=&gt; a(b(x))</code></p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def compose(a: &#39;Permutation&#39;, b: &#39;Permutation&#39;) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Composes two permutations: `a*b(x) &lt;=&gt; a(b(x))`
+    &#34;&#34;&#34;
+    assert a.reach == b.reach
+    composition_map = dict()
+    for elmt in range(0, a.reach):
+        composition_map[elmt] = a.transpose(b.transpose(elmt))
+
+    return Permutation.from_map(composition_map)</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.cyclotomic"><code class="name flex">
+<span>def <span class="ident">cyclotomic</span></span>(<span>vertices, allows_fixed_points=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a permutation on the <code>vertices</code>-th roots of one</p>
+<p>if <code>allows_fixed_points</code> is True then:</p>
+<ul>
+<li>
+<p>the permutation has one fixed point if <code>vertices</code> is odd</p>
+</li>
+<li>
+<p>and two fixed points if <code>vertices</code> is even</p>
+</li>
+</ul>
+<p>if <code>allows_fixed_points</code> is False then:</p>
+<ul>
+<li>
+<p>the permutation is the <em>complex roots conjugation</em> if <code>vertices</code> is odd,</p>
+</li>
+<li>
+<p>a <em>circular permutation</em> if <code>vertices</code> is even.</p>
+</li>
+</ul></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def cyclotomic(vertices: int, allows_fixed_points: bool = True) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Returns a permutation on the `vertices`-th roots of one
+
+    if `allows_fixed_points` is True then:
+
+    - the permutation has one fixed point if `vertices` is odd
+
+    - and two fixed points if `vertices` is even
+
+    if `allows_fixed_points` is False then:
+
+    - the permutation is the *complex roots conjugation* if `vertices` is odd,
+
+    - a *circular permutation* if `vertices` is even.
+    &#34;&#34;&#34;
+    if vertices &lt;= 0:
+        raise ValueError(&#39;Number of vertices for a cyclotomic permutation must be 1 or greater&#39;)
+
+    representation = []
+    if vertices % 2 == 0:
+        if allows_fixed_points:
+            if vertices &gt; 2:
+                # two fixed points: 0 and vertices // 2
+                representation.append((0,))
+                representation.append((vertices//2,))
+                # vertices - 2 2-cycles
+                for inx in range(1, vertices//2):
+                    representation.append((inx, vertices - inx,))
+            elif vertices == 2:
+                representation = [(0,), (1,)]
+            elif vertices == 1:
+                representation = [(0,)]
+        else:
+            # circular permutation
+            if vertices &gt; 2:
+                cycle = list(range(0, vertices - 1))
+                cycle.insert(0, vertices - 1)
+                representation = [tuple(cycle)]
+            elif vertices == 2:
+                representation = [(1, 0)]
+            elif vertices == 1:
+                raise ValueError(&#39;Cyclotomic permutation of reach 1 with no fixed points is impossible&#39;)
+
+    else:
+        if allows_fixed_points:
+            # one fixed point
+            representation = [(0,)]
+            if vertices &gt; 2:
+                for inx in range(1, (vertices-1)//2 + 1):
+                    representation.append((inx, vertices-inx,))
+        else:
+            # complex conjugation of non real roots
+            if vertices &gt; 1:
+                for inx in range(0, (vertices-1)//2):
+                    representation.append((inx, vertices-inx-2,))
+            else:
+                raise ValueError(&#39;cyclotomic permutation of reach 1 with no fixed points is impossible&#39;)
+
+    return Permutation(tuple(representation),)</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.from_map"><code class="name flex">
+<span>def <span class="ident">from_map</span></span>(<span>m)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Builds a permutation from a dictionary <code>m</code></p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def from_map(m: Map) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Builds a permutation from a dictionary `m`
+    &#34;&#34;&#34;
+    reach = len(m)
+    if sorted(list(m.keys())) != list(range(0, reach)) or sorted(list(m.values())) != list(range(0, reach)):
+        raise ValueError(&#34;Given map is not bijective&#34;)
+
+    _m = {k: v for k, v in m.items()}  # copy the input map
+    with Permutation(reach=reach) as ret:
+        while len(_m) &gt; 0:
+            current_cycle = []
+
+            # pick an element at random
+            first_elem = random.choice(list(_m.keys()))
+            next_elem = first_elem
+            while True:
+                current_cycle.append(next_elem)
+                next_elem, current_elem = _m[next_elem], next_elem
+                del _m[current_elem]
+                if next_elem == first_elem:
+                    ret.add_cycle(*tuple(current_cycle))
+                    break
+
+    return ret</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.identity"><code class="name flex">
+<span>def <span class="ident">identity</span></span>(<span>reach)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns the identity permutation of <code>reach</code> size</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def identity(reach: int) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Returns the identity permutation of `reach` size
+    &#34;&#34;&#34;
+    with Permutation(reach=reach) as ret:
+        for inx in range(0, reach):
+            ret.add_cycle(inx)
+
+    return ret</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.random"><code class="name flex">
+<span>def <span class="ident">random</span></span>(<span>reach, allows_fixed_points=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a full random permutation of length <code>reach</code>.
+If <code>allows_fixed_points</code> is False, the function shuffles the set of fixed points to
+reduce them into a cycle. If the number of fixed points reached 1, another random
+permutation is generated instead.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def random(reach: int, allows_fixed_points: bool = True) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Returns a full random permutation of length `reach`.
+    If `allows_fixed_points` is False, the function shuffles the set of fixed points to
+    reduce them into a cycle. If the number of fixed points reached 1, another random
+    permutation is generated instead.
+    &#34;&#34;&#34;
+    keys = list(range(0, reach))
+    values = keys[:]
+    random.shuffle(values)
+    m = dict(zip(keys, values))
+    p = Permutation.from_map(m)
+    if not allows_fixed_points:
+        while p.fixed_points &gt; 0:
+            if p.fixed_points &gt; 1:
+                k = [pt[0] for pt in p.get_fixed_points()]
+                v = k[:]
+                random.shuffle(v)
+                m.update(dict(zip(k, v)))
+                p = Permutation.from_map(m)
+            else:
+                p = Permutation.random(reach, allows_fixed_points=allows_fixed_points)
+
+    return p</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.random_full_cycle"><code class="name flex">
+<span>def <span class="ident">random_full_cycle</span></span>(<span>reach)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a permutation that contains only a <code>reach</code>-cycle with random transpositions</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def random_full_cycle(reach: int) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Returns a permutation that contains only a `reach`-cycle with random transpositions
+    &#34;&#34;&#34;
+    full_cycle = list(range(0, reach))
+    random.shuffle(full_cycle)
+    representation = tuple(full_cycle)
+    with Permutation(reach=len(representation)) as ret:
+        ret.add_cycle(*representation)
+
+    return ret</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pypermute.Permutation.cycles"><code class="name">var <span class="ident">cycles</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the total number of cycles of length &gt; 1</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def cycles(self) -&gt; int:
+    &#34;&#34;&#34;Returns the total number of cycles of length &gt; 1
+    &#34;&#34;&#34;
+    return list(self._iter_cycles(2, None)).__len__()</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.fixed_points"><code class="name">var <span class="ident">fixed_points</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the total number of fixed points</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def fixed_points(self) -&gt; int:
+    &#34;&#34;&#34;Returns the total number of fixed points
+    &#34;&#34;&#34;
+    return list(self.get_fixed_points()).__len__()</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.order"><code class="name">var <span class="ident">order</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the <code>order</code> of a permutation that is the product of the lengths of its cycles</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def order(self) -&gt; int:
+    &#34;&#34;&#34;Returns the `order` of a permutation that is the product of the lengths of its cycles
+    &#34;&#34;&#34;
+    p = 1
+    for cycle in self._representation:
+        p *= cycle.__len__()
+
+    return p</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.reach"><code class="name">var <span class="ident">reach</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the <code>reach</code> of a permutation that is the size of the set it acts upon</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def reach(self) -&gt; int:
+    &#34;&#34;&#34;Returns the `reach` of a permutation that is the size of the set it acts upon
+    &#34;&#34;&#34;
+    return self._reach</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.transpositions"><code class="name">var <span class="ident">transpositions</span></code></dt>
+<dd>
+<section class="desc"><p>Returns the number of 2-cycles</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def transpositions(self) -&gt; int:
+    &#34;&#34;&#34;Returns the number of 2-cycles
+    &#34;&#34;&#34;
+    return list(self.get_cycles(2)).__len__()</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pypermute.Permutation.add_cycle"><code class="name flex">
+<span>def <span class="ident">add_cycle</span></span>(<span>self, *args)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>When in mutable mode, appends a cycle to the permutation being built</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_cycle(self, *args):
+    &#34;&#34;&#34;When in mutable mode, appends a cycle to the permutation being built
+    &#34;&#34;&#34;
+    raise PermutationBuilderError(&#39;Attempt to add a cycle outside a Permutation build context&#39;)</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.canonical"><code class="name flex">
+<span>def <span class="ident">canonical</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns the canonical representation of a permutation
+as a product of cycles that obeys the following constraints:</p>
+<ol>
+<li>
+<p>in each cycle the largest element is listed first</p>
+</li>
+<li>
+<p>the cycles are sorted in ascending order of their first element</p>
+</li>
+</ol></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def canonical(self) -&gt; Representation:
+    &#34;&#34;&#34;Returns the canonical representation of a permutation
+    as a product of cycles that obeys the following constraints:
+
+    1. in each cycle the largest element is listed first
+
+    2. the cycles are sorted in ascending order of their first element
+    &#34;&#34;&#34;
+    canonical_rep = []
+    for cycle in self._representation:
+        canonical_cycle = []
+        # get the largest element
+        lrg = max(cycle)
+        pos = cycle.index(lrg)
+        elmt = lrg
+        while True:
+            canonical_cycle.append(elmt)
+            elmt = self._find_next(pos, cycle)
+            if elmt == lrg:
+                break
+            else:
+                pos = cycle.index(elmt)
+
+        canonical_rep.append(tuple(canonical_cycle))
+
+    canonical_rep = tuple(sorted(canonical_rep, key=lambda a: a[0], reverse=True))
+    return canonical_rep</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.copy"><code class="name flex">
+<span>def <span class="ident">copy</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a copy of itself</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy(self) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Returns a copy of itself
+    &#34;&#34;&#34;
+    return Permutation(self._representation)</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.cycles_by_length"><code class="name flex">
+<span>def <span class="ident">cycles_by_length</span></span>(<span>self, length)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns an iterable of all cycles of a given length</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cycles_by_length(self, length: int) -&gt; int:
+    &#34;&#34;&#34;Returns an iterable of all cycles of a given length
+    &#34;&#34;&#34;
+    return list(self.get_cycles(length)).__len__()</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.get_cycles"><code class="name flex">
+<span>def <span class="ident">get_cycles</span></span>(<span>self, order=0)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns an iterator of all cycles of order <code>order</code>.
+If <code>order</code> is 0, returns all the cycles of any order except fixed points</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_cycles(self, order: int = 0) -&gt; Iterator[Cycle]:
+    &#34;&#34;&#34;Returns an iterator of all cycles of order `order`.
+    If `order` is 0, returns all the cycles of any order except fixed points
+    &#34;&#34;&#34;
+    if order == 0:
+        return self._iter_cycles(2, None)
+    else:
+        return self._iter_cycles(order, order)</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.get_fixed_points"><code class="name flex">
+<span>def <span class="ident">get_fixed_points</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>returns an iterator on all the fixed points which are just 1-cycles</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_fixed_points(self) -&gt; Iterator[Cycle]:
+    &#34;&#34;&#34;returns an iterator on all the fixed points which are just 1-cycles
+    &#34;&#34;&#34;
+    return self.get_cycles(order=1)</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.get_transpositions"><code class="name flex">
+<span>def <span class="ident">get_transpositions</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns an iterator on all 2-cycles</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_transpositions(self) -&gt; Iterator[Cycle]:
+    &#34;&#34;&#34;Returns an iterator on all 2-cycles
+    &#34;&#34;&#34;
+    return self.get_cycles(order=2)</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.invert"><code class="name flex">
+<span>def <span class="ident">invert</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns the inverse permutation such as <code>p o p-1 = Id</code></p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def invert(self) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Returns the inverse permutation such as `p o p-1 = Id`
+    &#34;&#34;&#34;
+    with Permutation(reach=self.reach) as ret:
+        for cycle in self.canonical():
+            ret.add_cycle(*(reversed(cycle)))
+
+    return ret</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.iterated"><code class="name flex">
+<span>def <span class="ident">iterated</span></span>(<span>self, power)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Composes the permutation with itself <code>power</code> times</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def iterated(self, power: int) -&gt; &#39;Permutation&#39;:
+    &#34;&#34;&#34;Composes the permutation with itself `power` times
+    &#34;&#34;&#34;
+    p = self.copy()
+    while power &gt; 1:
+        p *= p
+        power -= 1
+
+    return p</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.permute_sequence"><code class="name flex">
+<span>def <span class="ident">permute_sequence</span></span>(<span>self, col)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a permuted set as an iterator.
+The input parameter must be an <strong>indexable bounded container</strong></p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def permute_sequence(self, col: Sequence[Any]) -&gt; Iterator[Any]:
+    &#34;&#34;&#34;Returns a permuted set as an iterator.
+    The input parameter must be an **indexable bounded container**
+    &#34;&#34;&#34;
+    assert len(col) == self.reach
+    index = 0
+    for _ in col:
+        yield col[self.transpose(index)]
+        index += 1</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.to_map"><code class="name flex">
+<span>def <span class="ident">to_map</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns the transposition map of the permutation</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_map(self) -&gt; Map:
+    &#34;&#34;&#34;Returns the transposition map of the permutation
+    &#34;&#34;&#34;
+    m = dict()
+    for inx in range(0, self.reach):
+        m[inx] = self.transpose(inx)
+    return m</code></pre>
+</details>
+</dd>
+<dt id="pypermute.Permutation.transpose"><code class="name flex">
+<span>def <span class="ident">transpose</span></span>(<span>self, element)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns the index of the transposed element</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def transpose(self, element: int) -&gt; int:
+    &#34;&#34;&#34;Returns the index of the transposed element
+    &#34;&#34;&#34;
+    cycle, pos = self._find_element(element)
+    return self._find_next(pos, cycle)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="pypermute.PermutationBuilderError"><code class="flex name class">
+<span>class <span class="ident">PermutationBuilderError</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Thrown when <code>add_cycle</code> or other mutable methods are called outside of the building context manager</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PermutationBuilderError(PermissionError):
+    &#34;&#34;&#34;Thrown when `add_cycle` or other mutable methods are called outside of the building context manager
+    &#34;&#34;&#34;
+    ...</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.PermissionError</li>
+<li>builtins.OSError</li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="pypermute.PermutationStructuralError"><code class="flex name class">
+<span>class <span class="ident">PermutationStructuralError</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Thrown when the representation of a permutation presents some issues
+These issues can be:</p>
+<ul>
+<li>the same element belongs to more than one cycle</li>
+<li>one or more elements appear to be missing i.e. the sequence possesses holes</li>
+</ul></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PermutationStructuralError(ValueError):
+    &#34;&#34;&#34;Thrown when the representation of a permutation presents some issues
+    These issues can be:
+
+    - the same element belongs to more than one cycle
+    - one or more elements appear to be missing i.e. the sequence possesses holes
+    &#34;&#34;&#34;
+    ...</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.ValueError</li>
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pypermute.Permutation" href="#pypermute.Permutation">Permutation</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pypermute.Permutation.add_cycle" href="#pypermute.Permutation.add_cycle">add_cycle</a></code></li>
+<li><code><a title="pypermute.Permutation.canonical" href="#pypermute.Permutation.canonical">canonical</a></code></li>
+<li><code><a title="pypermute.Permutation.circular" href="#pypermute.Permutation.circular">circular</a></code></li>
+<li><code><a title="pypermute.Permutation.compose" href="#pypermute.Permutation.compose">compose</a></code></li>
+<li><code><a title="pypermute.Permutation.copy" href="#pypermute.Permutation.copy">copy</a></code></li>
+<li><code><a title="pypermute.Permutation.cycles" href="#pypermute.Permutation.cycles">cycles</a></code></li>
+<li><code><a title="pypermute.Permutation.cycles_by_length" href="#pypermute.Permutation.cycles_by_length">cycles_by_length</a></code></li>
+<li><code><a title="pypermute.Permutation.cyclotomic" href="#pypermute.Permutation.cyclotomic">cyclotomic</a></code></li>
+<li><code><a title="pypermute.Permutation.fixed_points" href="#pypermute.Permutation.fixed_points">fixed_points</a></code></li>
+<li><code><a title="pypermute.Permutation.from_map" href="#pypermute.Permutation.from_map">from_map</a></code></li>
+<li><code><a title="pypermute.Permutation.get_cycles" href="#pypermute.Permutation.get_cycles">get_cycles</a></code></li>
+<li><code><a title="pypermute.Permutation.get_fixed_points" href="#pypermute.Permutation.get_fixed_points">get_fixed_points</a></code></li>
+<li><code><a title="pypermute.Permutation.get_transpositions" href="#pypermute.Permutation.get_transpositions">get_transpositions</a></code></li>
+<li><code><a title="pypermute.Permutation.identity" href="#pypermute.Permutation.identity">identity</a></code></li>
+<li><code><a title="pypermute.Permutation.invert" href="#pypermute.Permutation.invert">invert</a></code></li>
+<li><code><a title="pypermute.Permutation.iterated" href="#pypermute.Permutation.iterated">iterated</a></code></li>
+<li><code><a title="pypermute.Permutation.order" href="#pypermute.Permutation.order">order</a></code></li>
+<li><code><a title="pypermute.Permutation.permute_sequence" href="#pypermute.Permutation.permute_sequence">permute_sequence</a></code></li>
+<li><code><a title="pypermute.Permutation.random" href="#pypermute.Permutation.random">random</a></code></li>
+<li><code><a title="pypermute.Permutation.random_full_cycle" href="#pypermute.Permutation.random_full_cycle">random_full_cycle</a></code></li>
+<li><code><a title="pypermute.Permutation.reach" href="#pypermute.Permutation.reach">reach</a></code></li>
+<li><code><a title="pypermute.Permutation.to_map" href="#pypermute.Permutation.to_map">to_map</a></code></li>
+<li><code><a title="pypermute.Permutation.transpose" href="#pypermute.Permutation.transpose">transpose</a></code></li>
+<li><code><a title="pypermute.Permutation.transpositions" href="#pypermute.Permutation.transpositions">transpositions</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pypermute.PermutationBuilderError" href="#pypermute.PermutationBuilderError">PermutationBuilderError</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pypermute.PermutationStructuralError" href="#pypermute.PermutationStructuralError">PermutationStructuralError</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
