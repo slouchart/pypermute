@@ -200,7 +200,7 @@ class Permutation:
 
     @property
     def reach(self) -> int:
-        """Returns the `reach` of a permutation that is the size of the set it acts upon
+        """Returns the `reach` of a permutation that is the size of the sequence it acts upon
         """
         return self._reach
 
