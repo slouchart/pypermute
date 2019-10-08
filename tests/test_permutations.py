@@ -189,7 +189,7 @@ class TestPermutation(TestCase):
         c = Permutation.circular(5)
         self.assertEqual(c.canonical(), ((4, 0, 1, 2, 3,),))
 
-    def test904(self):
+    def test905(self):
         """Idempotence of circular and reversed circular permutations
         """
         c1 = Permutation.circular(5)
@@ -197,26 +197,26 @@ class TestPermutation(TestCase):
 
         self.assertTrue(c1 * c2 == c2 * c1 == c1.identity(5))
 
-    def test905(self):
+    def test906(self):
         """Full random permutation sanity check
         """
         with self.assertRaises(NoError):
-            p = Permutation.random(5)
+            _ = Permutation.random(5)
             raise NoError
 
-    def test906(self):
+    def test907(self):
         """Full random permutation w/o fixed points
         """
         p = Permutation.random(5, allows_fixed_points=False)
         self.assertEqual(p.fixed_points, 0)
 
-    def test907(self):
+    def test908(self):
         """Symmetric transposition
         """
         p = Permutation.symmetric(3)
         self.assertEqual(p*p, p.identity(6))
 
-    def test908(self):
+    def test909(self):
         """Printable canonical representation
         """
         p = Permutation.symmetric(4)
@@ -225,7 +225,7 @@ class TestPermutation(TestCase):
         p = Permutation.identity(1)
         self.assertEqual(str(p), '(0)')
 
-    def test909(self):
+    def test9090(self):
         """Signature of a odd permutation
         """
         p = Permutation.symmetric(3)
