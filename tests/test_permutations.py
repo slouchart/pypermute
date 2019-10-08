@@ -1,6 +1,6 @@
 from unittest import TestCase
 from unittest import main as run_tests
-
+from unittest import skip
 
 from pypermute import Permutation
 
@@ -148,7 +148,8 @@ class TestPermutation(TestCase):
 
         self.assertEqual(p.to_map(), m)
 
-    def test91(self):
+    @skip('Deprecated')
+    def test901(self):
         """Cyclotomic permutations for 3, 4, 5 and 6-th roots of 1
         """
         with self.subTest('cyclotomic odd w/ fixed pts'):
@@ -167,26 +168,28 @@ class TestPermutation(TestCase):
             p4 = Permutation.cyclotomic(6, allows_fixed_points=False)
             self.assertEqual(p4.canonical(), ((5, 0, 1, 2, 3, 4,),))
 
-    def test92(self):
+    @skip('Deprecated')
+    def test902(self):
         """Cyclotomic permutation for 17 vertices
         """
         p = Permutation.cyclotomic(17, allows_fixed_points=False)
         for cycle in p:
             self.assertEqual(len(cycle), 2)
 
-    def test93(self):
+    @skip('Deprecated')
+    def test903(self):
         """Cyclotomic conjugation for 5 vertices
         """
         c = Permutation.cyclotomic(5, allows_fixed_points=False)
         self.assertTrue(c ** 2 == c.identity(4))
 
-    def test94(self):
+    def test904(self):
         """Circular permutation
         """
         c = Permutation.circular(5)
         self.assertEqual(c.canonical(), ((4, 0, 1, 2, 3,),))
 
-    def test95(self):
+    def test904(self):
         """Idempotence of circular and reversed circular permutations
         """
         c1 = Permutation.circular(5)
@@ -194,16 +197,72 @@ class TestPermutation(TestCase):
 
         self.assertTrue(c1 * c2 == c2 * c1 == c1.identity(5))
 
-    def test96(self):
-        """Full random permutation sanity check"""
+    def test905(self):
+        """Full random permutation sanity check
+        """
         with self.assertRaises(NoError):
             p = Permutation.random(5)
             raise NoError
 
-    def test97(self):
-        """Full random permutation w/o fixed points"""
+    def test906(self):
+        """Full random permutation w/o fixed points
+        """
         p = Permutation.random(5, allows_fixed_points=False)
         self.assertEqual(p.fixed_points, 0)
+
+    def test907(self):
+        """Symmetric transposition
+        """
+        p = Permutation.symmetric(3)
+        self.assertEqual(p*p, p.identity(6))
+
+    def test908(self):
+        """Printable canonical representation
+        """
+        p = Permutation.symmetric(4)
+        self.assertEqual(str(p), "(7 0)(6 1)(5 2)(4 3)")
+
+        p = Permutation.identity(1)
+        self.assertEqual(str(p), '(0)')
+
+    def test909(self):
+        """Signature of a odd permutation
+        """
+        p = Permutation.symmetric(3)
+        self.assertEqual(p.signature, -1)
+        self.assertTrue(p.odd)
+        self.assertFalse(p.even)
+
+    def test91(self):
+        """Signature of a even permutation
+        """
+        with Permutation(reach=4) as p:
+            p.add_cycle(0, 1)
+            p.add_cycle(2, 3)
+
+        self.assertEqual(p.signature, 1)
+        self.assertTrue(p.even)
+        self.assertFalse(p.odd)
+
+    def test910(self):
+        """Evaluable representation of a permutation
+        """
+        p = Permutation.random(9)
+        self.assertEqual(Permutation.from_map(eval(repr(p))), p)
+
+    def test911(self):
+        """Product of elementary transpositions
+        """
+        p = Permutation.symmetric(4)
+        with self.assertRaises(ValueError):
+            with Permutation(reach=8) as p2:
+                for t in p.get_all_transpositions():
+                    p2.add_cycle(*t)
+
+        tl = list(p.get_all_transpositions())
+        m = {k: v for (k, v) in tl}
+        p2 = Permutation.from_map(m)
+        self.assertEqual(p, p2)
 
 
 if __name__ == '__main__':
