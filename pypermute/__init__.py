@@ -1,4 +1,4 @@
-__version__ = '0.1'
+__version__ = '0.1.1'
 __author__ = 'Sébastien Louchart:sebastien.louchart@gmail.com'
 
 __all__ = ['Permutation', 'PermutationBuilderError', 'PermutationStructuralError']
@@ -124,64 +124,20 @@ class Permutation:
 
     @staticmethod
     def cyclotomic(vertices: int, allows_fixed_points: bool = True) -> 'Permutation':
-        """Returns a permutation on the `vertices`-th roots of one
-
-        if `allows_fixed_points` is True then:
-
-        - the permutation has one fixed point if `vertices` is odd
-
-        - and two fixed points if `vertices` is even
-
-        if `allows_fixed_points` is False then:
-
-        - the permutation is the *complex roots conjugation* if `vertices` is odd,
-
-        - a *circular permutation* if `vertices` is even.
+        """Deprecated from version 0.1.0
         """
-        if vertices <= 0:
-            raise ValueError('Number of vertices for a cyclotomic permutation must be 1 or greater')
+        raise DeprecationWarning("Reason: unclear semantics, replaced by `symmetric`")
 
-        representation = []
-        if vertices % 2 == 0:
-            if allows_fixed_points:
-                if vertices > 2:
-                    # two fixed points: 0 and vertices // 2
-                    representation.append((0,))
-                    representation.append((vertices//2,))
-                    # vertices - 2 2-cycles
-                    for inx in range(1, vertices//2):
-                        representation.append((inx, vertices - inx,))
-                elif vertices == 2:
-                    representation = [(0,), (1,)]
-                elif vertices == 1:
-                    representation = [(0,)]
-            else:
-                # circular permutation
-                if vertices > 2:
-                    cycle = list(range(0, vertices - 1))
-                    cycle.insert(0, vertices - 1)
-                    representation = [tuple(cycle)]
-                elif vertices == 2:
-                    representation = [(1, 0)]
-                elif vertices == 1:
-                    raise ValueError('Cyclotomic permutation of reach 1 with no fixed points is impossible')
+    @staticmethod
+    def symmetric(degree: int) -> 'Permutation':
+        """Returns a symmetric permutation of order 2*degree isomorphic to the complex conjugation of the complex roots
+        of the cyclotomic polynomial of a given degree
+        """
+        with Permutation(reach=2*degree) as p:
+            for v in range(0, degree):
+                p.add_cycle(v, 2*degree - 1 - v)
 
-        else:
-            if allows_fixed_points:
-                # one fixed point
-                representation = [(0,)]
-                if vertices > 2:
-                    for inx in range(1, (vertices-1)//2 + 1):
-                        representation.append((inx, vertices-inx,))
-            else:
-                # complex conjugation of non real roots
-                if vertices > 1:
-                    for inx in range(0, (vertices-1)//2):
-                        representation.append((inx, vertices-inx-2,))
-                else:
-                    raise ValueError('cyclotomic permutation of reach 1 with no fixed points is impossible')
-
-        return Permutation(tuple(representation),)
+        return p
 
     def copy(self) -> 'Permutation':
         """Returns a copy of itself
@@ -215,6 +171,27 @@ class Permutation:
         return p
 
     @property
+    def signature(self) -> int:
+        """Returns +1 if the permutation is even and -1 if it is odd.
+        A permutation is odd if and only if it is composed of an odd number of even-length cycles
+        """
+        # counting the number of cycles of even length
+        n = 0
+        for cycle in self:
+            if cycle.__len__() % 2 == 0:
+                n += 1
+
+        return -1 if n % 2 != 0 else 1
+
+    @property
+    def even(self) -> bool:
+        return 1 == self.signature
+
+    @property
+    def odd(self) -> bool:
+        return -1 == self.signature
+
+    @property
     def cycles(self) -> int:
         """Returns the total number of cycles of length > 1
         """
@@ -236,14 +213,22 @@ class Permutation:
 
     @property
     def transpositions(self) -> int:
-        """Returns the number of 2-cycles
+        """Returns the number of disjoint 2-cycles
         """
         return list(self.get_cycles(2)).__len__()
 
     def get_transpositions(self) -> Iterator[Cycle]:
-        """Returns an iterator on all 2-cycles
+        """Returns an iterator on all disjoint 2-cycles
         """
         return self.get_cycles(order=2)
+
+    def get_all_transpositions(self) -> Iterator[Cycle]:
+        """Returns an iterator on all the transpositions of the permutation's map
+        Be aware that these transpositions may not be disjoint
+        """
+        m = self.to_map()
+        for k, v in m.items():
+            yield (k, v,)
 
     @property
     def fixed_points(self) -> int:
@@ -402,6 +387,23 @@ class Permutation:
             raise TypeError(f'You can compare only operands of {self.__class__} type')
 
         return other.canonical() == self.canonical()
+
+    def __str__(self) -> str:
+        """Returns a printable canonical representation of a permutation
+        """
+        r = self.canonical()
+        s = ''
+        for cycle in r:
+            if len(cycle) == 1:
+                s += f'({cycle[0]})'
+            else:
+                s += '({0})'.format(' '.join((str(i) for i in cycle)))
+        return s
+
+    def __repr__(self) -> str:
+        """Returns an evaluable representation of a permutation as a map
+        """
+        return self.to_map().__repr__()
 
     # PROTECTED INTERFACE
     def _validate(self, representation: Representation) -> Union[int, None]:
